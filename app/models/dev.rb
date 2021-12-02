@@ -3,8 +3,7 @@ class Dev < ActiveRecord::Base
     has_many :companies, through: :freebies
 
     def received_one?(item_name)
-        target_item = self.freebies.find_by(item_name: item_name)
-        target_item != nil 
+      self.freebies.any?{|freebie| freebie.item_name == item_name}
     end
 
     def give_away(dev, freebie)
