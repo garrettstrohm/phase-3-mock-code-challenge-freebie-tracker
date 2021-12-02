@@ -10,4 +10,8 @@ class Company < ActiveRecord::Base
         self.all.min{|a, b| a.founding_year <=> b.founding_year}
     end
 
+    def self.youngest_company
+        self.all.max{|a, b| a.founding_year <=> b.founding_year}
+    end
+
 end

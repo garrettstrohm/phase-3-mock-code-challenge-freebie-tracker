@@ -17,4 +17,18 @@ class Dev < ActiveRecord::Base
         end
     end
 
+
+    def freebies_total_value
+        self.freebies.sum{|freeb| freeb.value}
+    end
+
+    def richer_dev(dev)
+        self.freebies_total_value > dev.freebies_total_value ? self.name : dev.name
+    end
+
+    def self.richest_dev
+        target_total = self.all.map{|dev| dev.freebies_total_value}.max
+        self.all.select{|dev| dev.freebies_total_value == target_total}
+    end
+
 end
