@@ -12,12 +12,14 @@ class Dev < ActiveRecord::Base
             Freebie.create(item_name: freebie.item_name, value: freebie.value, company_id: freebie.company_id, dev: dev)
             delete_freebie = self.freebies.find(freebie.id)
             delete_freebie.destroy
+            self.reload
+            dev.reload
         else
             "This Dev does not own the freebie to give it away"
         end
     end
 
-
+    # Extra features not on the deliverables
     def freebies_total_value
         self.freebies.sum{|freeb| freeb.value}
     end
